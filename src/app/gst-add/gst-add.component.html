@@ -1,0 +1,211 @@
+<section class="common">
+<div class="container">
+   <div class="col-md-12">
+      <div class="card ">
+            <div class="">
+                  <h4 class="card-header bg-info text-white">Add Product</h4>
+              </div>
+         <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+               <div class="row">
+                  
+                  <div class="col-md-3">
+                     <div class="form-group">
+                        <label class="col-md-12">Product Name</label>
+                        <input type="text" class="col-md-12 form-control" formControlName="product_name" #product_name>
+                     </div>
+                     <div *ngIf="angForm.controls['product_name'].invalid && (angForm.controls['product_name'].dirty || angForm.controls['product_name'].touched)" class="col-md-12 alert alert-danger">
+                        <div *ngIf="angForm.controls['product_name'].errors.required">
+                           Product Name is required.
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="form-group">
+                        <label class="col-md-12">Category</label>
+                        <select formControlName="category_name" class="col-md-12 form-control" #category_name>
+                           <option>Saree</option>
+                           <option>Saree1</option>
+                        </select>
+                        <div *ngIf="angForm.controls['category_name'].invalid && (angForm.controls['category_name'].dirty || angForm.controls['category_name'].touched)" class="col-md-12 alert alert-danger">
+                           <div *ngIf="angForm.controls['category_name'].errors.required">
+                              Category Name is required.
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="form-group">
+                        <label class="col-md-12">Material</label>
+                        <select formControlName="material_name" class="col-md-12 form-control" #material_name>
+                           <option>Saree</option>
+                           <option>Saree1</option>
+                        </select>
+                        <div *ngIf="angForm.controls['material_name'].invalid && (angForm.controls['material_name'].dirty || angForm.controls['material_name'].touched)" class="col-md-12 alert alert-danger">
+                           <div *ngIf="angForm.controls['material_name'].errors.required">
+                              Material Name is required.
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+
+
+                  <div class="col-md-3">
+                     <div class="form-group">
+                       <label class="col-md-12">Price</label>
+                       <input type="number" class="col-md-12 form-control" formControlName="price" #price/>
+                     </div>
+                     <div *ngIf="angForm.controls['price'].invalid && (angForm.controls['price'].dirty || angForm.controls['price'].touched)" class="col-md-12 alert alert-danger">
+                       <div *ngIf="angForm.controls['price'].errors.required">
+                         Price is required.
+                       </div>
+                     </div>
+                     </div>
+
+
+
+                  <!-- <div class="col-md-3">
+                     <div class="form-group">
+                        <label class="col-md-12">File Upload</label>
+                        <input type="file" (change)="onFileChanged($event)" class="custom-file-input" formControlName="fileupload" #fileupload accept=".jpeg,.png,.jpg">
+                        <div class="image-preview">
+                              <img class="img-fluid img-thumbnail" src="{{imagePreview}}"  alt="Preview Image">
+                         </div>
+                         <div>{{selectedimage}}</div>
+                        <button class="btn btn-info" (click)="fileupload.click()">Upload</button>
+                     </div>
+                    
+                     <div *ngIf="angForm.controls['fileupload'].invalid && (angForm.controls['fileupload'].dirty || angForm.controls['fileupload'].touched)" class="col-md-12 alert alert-danger">
+                        <div *ngIf="angForm.controls['fileupload'].errors.required">
+                           fileupload is required.
+                        </div>
+                     </div>
+                  </div> -->
+
+
+
+                 <div class="col-md-3">
+                     <div class="form-group">
+                       <label class="col-md-12">Upload Image</label>
+                  <div id="fileSelector">
+                     <input type="file"  name="fileUplaod" id="fileUpload" accept=".jpeg,.png,.jpg"
+                      multiple ng2FileSelect [uploader]="uploader" >
+                  </div>
+                 
+                     <div class="row uploadList" *ngFor="let item of uploader.queue">
+                          <div class="col-sm-12">{{item.file.name}}</div>
+                          <div class="col-sm-12">
+                              <div class="progress mt-2 mb-2">
+                                  <div class="progress-bar bg-success" 
+                                  [ngStyle]="{'width':item.progress+'%'}"></div>
+                              </div>
+                              <div class="col-sm-12">
+                              <button type="button" class="btn btn-dark m-2" (click)="item.upload()">Upload</button>
+                              <button type="button" class="btn btn-danger m-2" (click)="item.remove()">Cancel</button>
+                           </div>
+                           </div>
+                     </div>
+                 </div>
+                  </div>  
+
+                  <div class="col-sm-3">
+                        <div class="form-group">
+                              <label class="col-md-12">Preview Uploaded Image</label>
+                              <div class="image-preview">
+                                    <img class="img-fluid img-thumbnail" src="../../../api/uploads/1547405441302.IMG-20181230-WA0012" alt="Preview Image">
+                               </div>
+                         </div>
+                         
+                  </div>
+
+               <div class="col-sm-6">
+                     <div class="form-group">
+                       <label class="col-md-12">Description</label>
+                       <textarea type="text" class="col-md-12 form-control" formControlName="description" #description></textarea>
+                     </div>
+                     <div *ngIf="angForm.controls['description'].invalid && (angForm.controls['description'].dirty || angForm.controls['description'].touched)" class="col-md-12 alert alert-danger">
+                       <div *ngIf="angForm.controls['description'].errors.required">
+                         discription is required.
+                       </div>
+                     </div>
+                     </div> 
+                    
+                     <div class="col-md-7">
+                     <div class="form-group text-right">
+                        <button (click)="addBusiness(product_name.value, category_name.value, material_name.value, price.value, description.value)"
+                        [disabled]="angForm.pristine || angForm.invalid" 
+                        class="btn btn-primary">Add</button>
+                     </div>
+                  </div>
+               </div>
+              
+            </form>
+         </div>
+       </div>
+   </div>
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<div class="container-fluid">
+   <div class="row header-section">
+       <span>Angular 4/5 Nodejs File Upload Download Sample</span>
+   </div>
+
+   <div class="row">
+       <div class="col-md-2"></div>
+       <div class="col-md-8">
+           <div class="row card">
+               <div class="col-sm-12">
+                   
+                           <div class="col-sm-4">
+                                   <button type="button" class="btn btn-dark" (click)="item.upload()">Upload</button>
+                                   <button type="button" class="btn btn-danger" (click)="item.remove()">Cancel</button>
+                           </div>
+                       </div>                        
+                   </div>
+                   <div class="row" *ngIf="uploader?.queue?.length > 0">
+                           <button type="button" class="btn btn-primary" (click)="uploader.uploadAll()">Upload All</button>
+                   </div>
+               </div>                
+           </div>
+           </div>
+           </div>
+           </div> -->
+           
